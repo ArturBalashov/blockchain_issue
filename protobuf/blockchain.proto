@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "github.com/ArturBalashov/blockchain_issue/internal/blockchain";
+
+package blockchain_service;
+
+service Blockchain {
+	rpc GetIssue(GetIssueRequest) returns(GetIssueResponse) {}
+	rpc GetQuote(GetQuoteRequest) returns(GetQuoteResponse) {}
+}
+
+message GetIssueRequest {
+}
+
+message GetIssueResponse {
+	bytes hash = 1;
+}
+
+message GetQuoteRequest {
+	string solution = 1;
+}
+
+message GetQuoteResponse {
+	string quote = 1;
+}
