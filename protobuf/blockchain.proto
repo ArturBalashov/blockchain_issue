@@ -13,11 +13,14 @@ message GetIssueRequest {
 }
 
 message GetIssueResponse {
-	bytes hash = 1;
+	bytes puzzle = 1;
+	int32 complexity = 2;
+	string uid = 3;
 }
 
 message GetQuoteRequest {
-	string solution = 1;
+	bytes solution = 1;
+	string uid = 2;
 }
 
 message GetQuoteResponse {

@@ -8,7 +8,7 @@ func New() *Config {
 	cfg := Config{}
 
 	helpers.EnvToString(&cfg.SrvAddr, "BLOCKCHAIN_ADDRESS", ":8080")
-	helpers.EnvToString(&cfg.FileResponsesPath, "BLOCKCHAIN_FILEPATH", "")
+	helpers.EnvToString(&cfg.FileResponsesPath, "BLOCKCHAIN_FILEPATH", "internal/repository/in_memory/quotes.txt")
 
 	return &cfg
 }

@@ -1,4 +1,4 @@
-package blockhain
+package blockchain
 
 import (
 	"bytes"

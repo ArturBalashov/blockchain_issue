@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  server:
+    build: .
+    restart: on-failure
+    environment:
+      BLOCKCHAIN_ADDRESS: ":8080"
+      BLOCKCHAIN_FILEPATH: "internal/repository/in_memory/quotes.txt"
+
+  client:
+    build: .
+    restart: on-failure
+    depends_on:
+     - server
+    environment:
+      BLOCKCHAIN_ADDRESS: ":8080"
+    command: ["client"]
