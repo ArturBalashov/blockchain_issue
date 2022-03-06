@@ -2,14 +2,14 @@ package blockchain
 
 import (
 	"crypto/sha256"
-	"encoding"
 	"hash"
 	"math/rand"
+	"time"
 )
 
 const (
-	SolutionSize = 1
-	PuzzleSize   = 1
+	SolutionSize = 16
+	PuzzleSize   = 16
 )
 
 type PuzzleSolution []byte
@@ -39,13 +39,17 @@ type PuzzleSolver struct {
 }
 
 func NewPuzzleSolver(p *Puzzle) *PuzzleSolver {
+	preHash := sha256.New()
+	preHash.Write(p.Value)
+	preHash.Sum(nil)
 	return &PuzzleSolver{
 		Puzzle:          p,
-		PrecomputedHash: sha256.New(),
+		PrecomputedHash: preHash,
 	}
 }
 
 func (ps *PuzzleSolver) Solve() SolvingResult {
+	rand.Seed(time.Now().UnixNano())
 	hashesTries := 0
 
 	for {
@@ -62,29 +66,18 @@ func (ps *PuzzleSolver) Solve() SolvingResult {
 }
 
 func (ps *PuzzleSolver) IsValidSolution(solution PuzzleSolution) bool {
-	hasher := ps.PrecomputedHash
-	hasher.Write(solution)
-	hasher.Sum(nil)
-	marshaller, ok := hasher.(encoding.BinaryMarshaler)
-	if !ok {
-		return false
-	}
-	state, err := marshaller.MarshalBinary()
-	if err != nil {
-		return false
-	}
+	hash := sha256.Sum256(solution)
 
 	leadingZeros := 0
 
-	for i := 0; i < int(ps.Puzzle.Complexity)/2+1; i++ {
-		c := state[i]
-		if c>>4 == 0 {
+	for i := 0; i < (int(ps.Puzzle.Complexity)/2 + 1); i++ {
+		if hash[i]>>4 == 0 {
 			leadingZeros += 1
 		} else {
 			break
 		}
 
-		if c&0xF == 0 {
+		if hash[i]&0xF == 0 {
 			leadingZeros += 1
 		} else {
 			break

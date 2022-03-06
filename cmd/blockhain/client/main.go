@@ -49,7 +49,7 @@ func main() {
 	solution := solver.Solve()
 	logger.Info("solution", zap.Binary("solution", solution.Solution), zap.Int("hash_tried", solution.HashTried))
 
-	quote, err := client.GetQuote(context.Background(), &pb.GetQuoteRequest{Solution: solution.Solution})
+	quote, err := client.GetQuote(context.Background(), &pb.GetQuoteRequest{Solution: solution.Solution, Uid: issue.GetUid()})
 	if err != nil {
 		logger.Error("can't get a quote", zap.Error(err))
 		return

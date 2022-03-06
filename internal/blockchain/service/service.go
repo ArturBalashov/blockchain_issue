@@ -12,7 +12,7 @@ import (
 	puzzle "github.com/ArturBalashov/blockchain_issue/pkg/tools/blockchain"
 )
 
-const DefaultComplexity = 1
+const DefaultComplexity = 4
 
 func New(repo repository.Repository, logger *zap.Logger, cfg *config.Config) *serviceWisdoms {
 	return &serviceWisdoms{
@@ -39,8 +39,8 @@ func (s *serviceWisdoms) GetIssue(_ context.Context, req *pb.GetIssueRequest) (*
 }
 
 func (s *serviceWisdoms) GetQuote(_ context.Context, req *pb.GetQuoteRequest) (*pb.GetQuoteResponse, error) {
-	solution := puzzle.PuzzleSolution(req.Solution)
-	puz := s.repo.GetHash(req.Uid)
+	solution := puzzle.PuzzleSolution(req.GetSolution())
+	puz := s.repo.GetHash(req.GetUid())
 
 	solver := puzzle.NewPuzzleSolver(&puz)
 	if !solver.IsValidSolution(solution) {
