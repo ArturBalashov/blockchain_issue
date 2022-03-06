@@ -6,13 +6,17 @@ services:
     restart: on-failure
     environment:
       BLOCKCHAIN_ADDRESS: ":8080"
-      BLOCKCHAIN_FILEPATH: "internal/repository/in_memory/quotes.txt"
+      BLOCKCHAIN_FILEPATH: "/data/quotes.txt"
+    ports:
+      - "8080:8080"
+    command: ["server"]
 
   client:
     build: .
     restart: on-failure
     depends_on:
      - server
+    network_mode: host
     environment:
       BLOCKCHAIN_ADDRESS: ":8080"
     command: ["client"]

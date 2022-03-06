@@ -21,9 +21,6 @@ func main() {
 		os.Stdout,
 		zap.DebugLevel,
 	))
-	logger.Info("client starting...")
-
-	defer logger.Info("service stopped")
 
 	// config initialize
 	cfg := config.New()
