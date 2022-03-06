@@ -6,6 +6,7 @@ Design and implement “Word of Wisdom” tcp server.
    - The choice of the POW algorithm should be explained.
    - After Prof Of Work verification, the server should send one of the quotes from “Word of wisdom” book or any other collection of the quotes.
    - Docker file should be provided both for the server and for the client that solves the POW challenge
+
 # Run
 
     docker-compose up -d
@@ -13,4 +14,4 @@ Design and implement “Word of Wisdom” tcp server.
 
 # Why Hashcash
 
-    This is the most known proof-of-work algorithm, which is used in Bitcoin's mining.
+    This is the most known proof-of-work algorithm, which is used in Bitcoin's mining. Also I has a very little time to get more knowledges about blockchain.
